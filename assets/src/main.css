@@ -1,0 +1,286 @@
+/**
+ * Sif Starter Theme - Main Styles
+ * Tailwind CSS 4 avec Design System
+ */
+
+/* Import du design system généré (variables, @theme, typography utilities) */
+@layer base, components, utilities;
+
+@import "./_design-system.css";
+
+/* Import Tailwind CSS */
+@import "tailwindcss";
+
+/*
+ * Source paths for Tailwind CSS class detection
+ * Theme is the single source of truth for Tailwind
+ * Plugin blocks are scanned here so their classes are included
+ */
+@source "../../**/*.php";
+@source "../../**/*.html";
+@source "../../../../plugins/site-forge/src/blocks/**/*.php";
+@source "../../../../plugins/site-forge/includes/**/*.php";
+@source "../../../../plugins/site-forge/helpers/**/*.php";
+
+/* Import des styles de boutons */
+@import "./buttons.css";
+
+
+/**
+ * Styles de base
+ */
+@layer base {
+  * {
+    @apply border-neutral-200;
+  }
+
+  html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body-line-height);
+    @apply text-neutral-900 bg-white;
+  }
+
+  /* Titres avec typographie responsive */
+  h1 {
+    font-family: var(--text-h1-font);
+    font-size: var(--text-h1);
+    font-weight: var(--text-h1-weight);
+    line-height: var(--text-h1-line-height);
+    letter-spacing: var(--text-h1-letter-spacing);
+  }
+
+  h2 {
+    font-family: var(--text-h2-font);
+    font-size: var(--text-h2);
+    font-weight: var(--text-h2-weight);
+    line-height: var(--text-h2-line-height);
+    letter-spacing: var(--text-h2-letter-spacing, 0);
+  }
+
+  h3 {
+    font-family: var(--text-h3-font);
+    font-size: var(--text-h3);
+    font-weight: var(--text-h3-weight);
+    line-height: var(--text-h3-line-height);
+  }
+
+  h4 {
+    font-family: var(--text-h4-font);
+    font-size: var(--text-h4);
+    font-weight: var(--text-h4-weight);
+    line-height: var(--text-h4-line-height);
+  }
+
+  h5 {
+    font-family: var(--text-h5-font);
+    font-size: var(--text-h5);
+    font-weight: var(--text-h5-weight);
+    line-height: var(--text-h5-line-height);
+  }
+
+  h6 {
+    font-family: var(--text-h6-font);
+    font-size: var(--text-h6);
+    font-weight: var(--text-h6-weight);
+    line-height: var(--text-h6-line-height);
+  }
+
+  /* Texte lead/intro */
+  .lead {
+    font-size: var(--text-lead);
+    line-height: var(--text-lead-line-height);
+  }
+
+  /* Texte small */
+  small, .small {
+    font-size: var(--text-small);
+    line-height: var(--text-small-line-height);
+  }
+
+  /* Caption */
+  .caption {
+    font-size: var(--text-caption);
+    line-height: var(--text-caption-line-height);
+    @apply text-neutral-500;
+  }
+
+  /* Liens */
+  a {
+    color: var(--color-primary);
+    transition: color var(--transition-normal) var(--transition-easing);
+  }
+
+  a:hover {
+    color: var(--color-primary-600);
+  }
+
+  /* Images */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Boutons */
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+/**
+ * Composants personnalisés
+ */
+@layer components {
+  /* Container personnalisé */
+  .container {
+    @apply mx-auto px-4 md:px-6 lg:px-8;
+    max-width: 1400px;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white transition-shadow;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    transition-duration: var(--transition-normal);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* Section */
+  .section {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-top: var(--spacing-2xl);
+      padding-bottom: var(--spacing-2xl);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-top: var(--spacing-3xl);
+      padding-bottom: var(--spacing-3xl);
+    }
+  }
+}
+
+/**
+ * Utilitaires personnalisés
+ */
+@layer utilities {
+  /* Animation fade-in */
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Animation slide-up */
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  }
+
+  /* Glass effect */
+  .glass {
+    background-color: oklch(1 0 0 / 0.1);
+    backdrop-filter: blur(16px);
+  }
+
+  /* Texte display (grands titres hero) */
+  .text-display {
+    font-family: var(--text-display-font);
+    font-size: var(--text-display);
+    font-weight: var(--text-display-weight);
+    line-height: var(--text-display-line-height);
+    letter-spacing: var(--text-display-letter-spacing);
+  }
+}
+
+/**
+ * Styles WordPress spécifiques
+ */
+.alignwide {
+  @apply max-w-screen-xl mx-auto;
+}
+
+.alignfull {
+  @apply w-full;
+}
+
+.wp-block-image {
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.wp-block-quote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  font-style: italic;
+}
+
+/**
+ * Styles pour les blocs Gutenberg
+ */
+.wp-block-button__link {
+  @apply inline-flex items-center justify-center font-semibold transition-all;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-lg);
+}
+
+.wp-block-cover {
+  @apply min-h-[500px] flex items-center justify-center;
+}
+
+/**
+ * Styles pour l'éditeur Gutenberg
+ */
+.editor-styles-wrapper {
+  font-family: var(--font-sans);
+}
+
+.block-editor-block-list__block {
+  @apply max-w-none;
+}

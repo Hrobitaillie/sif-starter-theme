@@ -1,0 +1,52 @@
+/*
+ * Styles de boutons - SiteForge
+ *
+ * Format du label : un commentaire "label: Label affiché" avant chaque .btn-{style}
+ *
+ * Variables optionnelles dans le commentaire (séparées par |) :
+ * - icon: false                  Désactive le choix d'icône
+ * - icon-default: arrow-right    Icône par défaut
+ * - icon-position: before|after  Position par défaut de l'icône
+ * - icon-move: false             Désactive le changement de position
+ */
+
+/* label: Primaire */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 font-semibold transition-all;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-lg);
+  transition-duration: var(--transition-normal);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-600);
+  transform: scale(1.02);
+}
+
+.btn-primary:focus {
+  @apply outline-none ring-2 ring-offset-2;
+  --tw-ring-color: var(--color-primary);
+}
+
+/* label: Primaire inversé */
+.btn-primary-reverse {
+  @apply inline-flex items-center justify-center gap-2 font-semibold transition-all;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  transition-duration: var(--transition-normal);
+}
+
+.btn-primary-reverse:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary-reverse:focus {
+  @apply outline-none ring-2 ring-offset-2;
+  --tw-ring-color: var(--color-primary);
+}
