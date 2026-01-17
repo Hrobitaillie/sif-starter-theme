@@ -143,9 +143,17 @@ function sif_enqueue_vite_assets() {
 add_action('wp_enqueue_scripts', 'sif_enqueue_vite_assets');
 
 /**
- * Enqueue editor assets (for Gutenberg)
+ * Enqueue block assets (for Gutenberg iframe and frontend)
+ *
+ * Note: enqueue_block_assets charge les styles dans l'iframe de l'éditeur
+ * contrairement à enqueue_block_editor_assets qui ne charge que dans la page admin
  */
-function sif_enqueue_editor_assets() {
+function sif_enqueue_block_assets() {
+    // Seulement dans l'éditeur admin, pas sur le frontend (déjà chargé via wp_enqueue_scripts)
+    if (!is_admin()) {
+        return;
+    }
+
     $is_dev = sif_is_vite_dev_server_running();
 
     if (!$is_dev) {
@@ -163,4 +171,4 @@ function sif_enqueue_editor_assets() {
         }
     }
 }
-add_action('enqueue_block_editor_assets', 'sif_enqueue_editor_assets');
+add_action('enqueue_block_assets', 'sif_enqueue_block_assets');

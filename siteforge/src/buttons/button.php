@@ -88,7 +88,7 @@ if ( is_array( $custom_attrs ) && !empty( $custom_attrs ) ) {
 // Génération de l'icône (Lucide)
 $icon_html = '';
 if ( $btn_icon && $btn_icon !== false ) {
-    $icon_html = function_exists('icon') ? icon($btn_icon, ['class' => 'size-4']) : '';
+    $icon_html = function_exists('icon') ? icon($btn_icon, ['class' => 'size-8']) : '';
 }
 
 ?>

@@ -1,2 +1,2 @@
 console.log("[Sif Starter Theme] Loaded successfully");
-//# sourceMappingURL=main.Bm4bseoR.js.map
+//# sourceMappingURL=main.CJOZRyW9.js.map
