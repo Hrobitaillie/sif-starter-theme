@@ -1,0 +1,14 @@
+@utility grid-stack {
+  grid-template: var(--tw-stack-height, minmax(0, 1fr)) / minmax(0, 1fr);
+  grid-template-areas: "stack";
+
+  & > * {
+    grid-area: stack;
+    position: relative;
+  }
+}
+
+@utility stack-* {
+  --tw-stack-height: --value([length]);
+  --tw-stack-height: --spacing(--value(integer));
+}

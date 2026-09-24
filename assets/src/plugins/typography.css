@@ -1,0 +1,351 @@
+@layer theme {
+    :root {
+        --tw-prose-line-height: 1.75;
+        --tw-prose-pre-color-scheme: dark;
+        --tw-prose-hr: color-mix(in lch, currentColor, transparent 90%);
+        --tw-prose-pre-bg: color-mix(in lch, currentColor, transparent 75%);
+        --tw-prose-bullets: color-mix(in lch, currentColor, transparent 75%);
+        --tw-prose-pre-code: color-mix(in lch, currentColor, transparent 5%);
+        --tw-prose-captions: color-mix(in lch, currentColor, transparent 50%);
+        --tw-prose-counters: color-mix(in lch, currentColor, transparent 50%);
+        --tw-prose-th-borders: color-mix(in lch, currentColor, transparent 75%);
+        --tw-prose-td-borders: color-mix(in lch, currentColor, transparent 75%);
+        --tw-prose-quote-borders: color-mix(in lch, currentColor, transparent 75%);
+    }
+}
+
+@layer components {
+    .is-style-prose {
+        line-height: var(--tw-prose-line-height, 1.6);
+
+        [class~="lead"] {
+            margin-block: 1lh;
+            font-size: 125%;
+            line-height: 1.5;
+        }
+
+        /* 
+         * Styles pour tous les liens <a> sauf ceux qui sont enfants de .pib-buttons.
+         */
+        :not(.pib-buttons)>a,
+        :not(.pib-buttons) a:not(.pib-buttons a) {
+            color: var(--tw-prose-links);
+            text-decoration: underline;
+            text-decoration-skip-ink: auto;
+            text-underline-offset: 0.175lh;
+            text-decoration-thickness: from-font;
+            transition-duration: 150ms;
+            transition-timing-function: ease-in-out;
+            transition-property: color, text-underline-offset, text-decoration-thickness;
+
+            &:hover,
+            &:focus-visible {
+                color: var(--tw-prose-links-hover);
+                text-underline-offset: 1px;
+                text-decoration-thickness: auto;
+            }
+        }
+
+        :where([class^="wp-block-pib-inner-"]):not(:where([class~="not-prose"], [class~="not-prose"] *)),
+        :where([class*="pib-buttons"]):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: 1lh;
+        }
+
+        :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            text-wrap: pretty;
+        }
+
+        :where(p, ul, ol, blockquote, table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: 1lh;
+        }
+
+        :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: 1lh;
+            border-radius: var(--radius-lg);
+            padding-block-start: 1lh;
+            padding-block-end: 1lh;
+            padding-inline-start: 1lh;
+            padding-inline-end: 1lh;
+            background-color: var(--tw-prose-pre-bg);
+            color: var(--tw-prose-pre-code);
+            overflow-x: auto;
+            color-scheme: var(--tw-prose-pre-color-scheme);
+        }
+
+        :where(ol):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            list-style-type: decimal;
+            padding-inline-start: 1lh;
+
+            &>li::marker {
+                color: var(--tw-prose-counters);
+            }
+        }
+
+        :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            list-style-type: disc;
+            padding-inline-start: 1lh;
+
+            &>li::marker {
+                color: var(--tw-prose-bullets);
+            }
+
+            &[class~="list-mask"] {
+                padding-inline-start: 0;
+
+                &>li {
+                    list-style: none;
+
+                    &::before {
+                        content: "";
+                        width: .8lh;
+                        height: .8lh;
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-inline-end: 0.5lh;
+                        mask: var(--tw-prose-list-svg);
+                        background-color: var(--tw-prose-bullets);
+                    }
+                }
+            }
+
+            &[class~="list-image"] {
+                padding-inline-start: 0;
+
+                &>li {
+                    list-style: none;
+
+                    &::before {
+                        content: "";
+                        width: .8lh;
+                        height: .8lh;
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-inline-end: 0.5lh;
+                        background-size: contain;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-image: var(--tw-prose-list-image);
+                    }
+                }
+            }
+        }
+
+        :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: .5lh;
+            margin-block-end: .5lh;
+        }
+
+        :where(ol, ul):not(:where([class~="not-prose"], [class~="not-prose"] *))>li {
+            padding-inline-start: 0.25lh;
+        }
+
+        &> :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *))>li p {
+            margin-block-start: 0.5lh;
+            margin-block-end: 0.5lh;
+        }
+
+        &> :where(ul, ol):not(:where([class~="not-prose"], [class~="not-prose"] *))>li>p:first-child {
+            margin-block-start: 1lh;
+        }
+
+        &> :where(ul, ol):not(:where([class~="not-prose"], [class~="not-prose"] *))>li>p:last-child {
+            margin-block-end: 1lh;
+        }
+
+        :is(ul, ol) :is(ul, ol):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: .5lh;
+            margin-block-end: .5lh;
+        }
+
+        :where(dt):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            color: var(--tw-prose-headings);
+        }
+
+        :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            border-color: var(--tw-prose-hr);
+            border-top-width: 1px;
+        }
+
+        :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            font-style: italic;
+            padding-inline-start: 1lh;
+            color: var(--tw-prose-quotes);
+            border-inline-start-width: calc(var(--spacing) * 1);
+            border-inline-start-color: var(--tw-prose-quote-borders);
+
+            p:first-of-type::before {
+                content: open-quote;
+            }
+
+            p:last-of-type::after {
+                content: close-quote;
+            }
+
+            :where(html[lang^="fr"] *) & {
+                p:first-of-type::before {
+                    content: open-quote " ";
+                }
+
+                p:last-of-type::after {
+                    content: " " close-quote;
+                }
+            }
+        }
+
+        :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            text-wrap: balance;
+            color: var(--tw-prose-headings);
+
+            strong {
+                color: inherit;
+            }
+        }
+
+        :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: .5lh;
+        }
+
+        :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: .825lh;
+            margin-block-end: .3lh;
+        }
+
+        :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: .75lh;
+            margin-block-end: 0.25lh;
+        }
+
+        :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: .75lh;
+            margin-block-end: 0.25lh;
+        }
+
+        :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: .75lh;
+            margin-block-end: 0.25lh;
+        }
+
+        :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            width: 100%;
+            table-layout: auto;
+            border-collapse: collapse;
+        }
+
+        :where(thead):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            border-block-end-width: 1px;
+            border-block-end-color: var(--tw-prose-th-borders);
+
+            th {
+                color: var(--tw-prose-headings);
+                vertical-align: bottom;
+                padding-inline-start: .5lh;
+                padding-inline-end: .5lh;
+                padding-block-end: .5lh;
+
+                &:first-child {
+                    padding-inline-start: 0;
+                }
+
+                &:last-child {
+                    padding-inline-end: 0;
+                }
+            }
+        }
+
+        :where(tbody):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            tr {
+                border-block-end-width: 1px;
+                border-block-end-color: var(--tw-prose-td-borders);
+
+                &:last-child {
+                    border-block-end-width: 0;
+                }
+            }
+
+            td {
+                vertical-align: baseline;
+            }
+        }
+
+        :where(tfoot):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            border-block-start-width: 1px;
+            border-block-start-color: var(--tw-prose-th-borders);
+
+            td {
+                vertical-align: top;
+            }
+        }
+
+        :is(tbody, tfoot):not(:where([class~="not-prose"], [class~="not-prose"] *)) td {
+            padding-block-start: .5lh;
+            padding-block-end: .5lh;
+            padding-inline-start: .5lh;
+            padding-inline-end: .5lh;
+
+            &:first-child {
+                padding-inline-start: 0;
+            }
+
+            &:last-child {
+                padding-inline-end: 0;
+            }
+        }
+
+        :where(th, td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            text-align: start;
+        }
+
+        :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block: 2lh;
+        }
+
+        :is(hr, h2, h3, h4):not(:where([class~="not-prose"], [class~="not-prose"] *))+* {
+            margin-block-start: 0;
+        }
+
+        :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: 1lh;
+        }
+
+        :where(picture):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: 1lh;
+
+            &>img {
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+        }
+
+        :where(figure):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            margin-block-start: 1lh;
+            margin-block-end: 1lh;
+
+            &>* {
+                margin-block-start: 0;
+                margin-block-end: 0;
+                color: var(--tw-prose-captions);
+            }
+        }
+
+        :where(figcaption):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+            font-size: 90%;
+            line-height: 1.4;
+            margin-block-start: .5lh;
+            color: var(--tw-prose-captions);
+        }
+
+        &>:first-child:not([class~="not-prose"]) {
+            margin-block-start: 0;
+        }
+
+        &>:last-child:not([class~="not-prose"]) {
+            margin-block-end: 0;
+        }
+    }
+}

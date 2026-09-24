@@ -1,0 +1,74 @@
+
+
+@theme {
+    --spacing-cp: var(--pib-container-padding);
+    --spacing-cm: var(--pib-container-margin);
+
+    --pib-container-margin: max(var(--pib-container-padding), calc((100vw - var(--pib-scrollbar-width) - var(--pib-breakpoint)) / 2));
+    --pib-scrollbar-width: 0px;
+}
+
+:root {
+    --pib-breakpoint: 100vw;
+    
+    @variant sm {
+        --pib-breakpoint: theme(--breakpoint-sm);
+    }
+
+    @variant md {
+        --pib-breakpoint: theme(--breakpoint-md);
+    }
+
+    @variant lg {
+        --pib-breakpoint: theme(--breakpoint-lg);
+        --pib-container-padding: clamp(3rem, 1.5rem + 2vw, 10rem);
+    }
+
+    @variant xl {
+        --pib-breakpoint: theme(--breakpoint-xl);
+    }
+
+    @variant 2xl {
+        --pib-breakpoint: theme(--breakpoint-2xl);
+    }
+
+    @variant 3xl {
+        --pib-breakpoint: theme(--breakpoint-3xl);
+    }
+}
+
+@utility max-sm {
+    @variant sm {
+        max-width: theme(--breakpoint-sm);
+    }
+}
+
+@utility max-md {
+    @variant md {
+        max-width: theme(--breakpoint-md);
+    }
+}
+
+@utility max-lg {
+    @variant lg {
+        max-width: theme(--breakpoint-lg);
+    }
+}
+
+@utility max-xl {
+    @variant xl {
+        max-width: theme(--breakpoint-xl);
+    }
+}
+
+@utility max-2xl {
+    @variant 2xl {
+        max-width: theme(--breakpoint-2xl);
+    }
+}
+
+@utility max-3xl {
+    @variant 3xl {
+        max-width: theme(--breakpoint-3xl);
+    }
+}

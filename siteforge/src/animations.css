@@ -1,0 +1,477 @@
+/**
+ * SiteForge 2.0 - Scroll-Driven Animations
+ *
+ * Système d'animations basé sur CSS scroll-driven animations
+ * et container style queries.
+ *
+ * Usage:
+ *   <section class="anim-trigger-forward">
+ *       <h1 class="anim-fade-up">Titre</h1>
+ *       <p class="anim-fade-up anim-delay-200">Texte</p>
+ *   </section>
+ */
+
+/* =============================================================================
+   BASE TRIGGER - Container parent
+   Définit le scroll-driven trigger et passe --anim-trigger à "running"
+   ============================================================================= */
+
+@layer utilities {
+    [class*="anim-trigger-"] {
+        container-type: inline-size;
+
+        @supports (animation-timeline: view()) {
+            --anim-trigger: paused;
+            animation: scroll-trigger-timeline steps(1) both;
+            animation-timeline: view();
+            animation-range: entry-crossing 0% cover 30%;
+        }
+    }
+}
+
+@keyframes scroll-trigger-timeline {
+    to {
+        --anim-trigger: running;
+    }
+}
+
+/* =============================================================================
+   MODE FORWARD - Animation une seule fois, reste à l'état final
+   ============================================================================= */
+
+@utility anim-trigger-forward {
+    --animation-type: "forward";
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+/* =============================================================================
+   MODE REVERT - Animation réversible au scroll up
+   ============================================================================= */
+
+@utility anim-trigger-revert {
+    --animation-type: "reverse";
+}
+
+/* =============================================================================
+   DÉLAIS D'ANIMATION
+   ============================================================================= */
+
+@utility anim-delay-100 {
+    --anim-delay: 100ms;
+}
+
+@utility anim-delay-200 {
+    --anim-delay: 200ms;
+}
+
+@utility anim-delay-300 {
+    --anim-delay: 300ms;
+}
+
+@utility anim-delay-400 {
+    --anim-delay: 400ms;
+}
+
+@utility anim-delay-500 {
+    --anim-delay: 500ms;
+}
+
+@utility anim-delay-600 {
+    --anim-delay: 600ms;
+}
+
+@utility anim-delay-700 {
+    --anim-delay: 700ms;
+}
+
+@utility anim-delay-800 {
+    --anim-delay: 800ms;
+}
+
+/* =============================================================================
+   DURÉES D'ANIMATION
+   ============================================================================= */
+
+@utility anim-duration-300 {
+    --anim-duration: 300ms;
+}
+
+@utility anim-duration-500 {
+    --anim-duration: 500ms;
+}
+
+@utility anim-duration-700 {
+    --anim-duration: 700ms;
+}
+
+@utility anim-duration-1000 {
+    --anim-duration: 1000ms;
+}
+
+/* =============================================================================
+   ANIMATIONS - Fade Up
+   ============================================================================= */
+
+@utility anim-fade-up {
+    --transform-from: translateY(30px);
+    --transform-to: translateY(0);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    /* Fallback - état final par défaut */
+    transform: var(--transform-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            animation: anim-fade-transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            transition:
+                transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Fade Down
+   ============================================================================= */
+
+@utility anim-fade-down {
+    --transform-from: translateY(-30px);
+    --transform-to: translateY(0);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    transform: var(--transform-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            animation: anim-fade-transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            transition:
+                transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Fade Left
+   ============================================================================= */
+
+@utility anim-fade-left {
+    --transform-from: translateX(30px);
+    --transform-to: translateX(0);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    transform: var(--transform-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            animation: anim-fade-transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            transition:
+                transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Fade Right
+   ============================================================================= */
+
+@utility anim-fade-right {
+    --transform-from: translateX(-30px);
+    --transform-to: translateX(0);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    transform: var(--transform-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            animation: anim-fade-transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            transition:
+                transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Fade (simple opacity)
+   ============================================================================= */
+
+@utility anim-fade {
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            opacity: var(--opacity-from);
+            animation: anim-opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            opacity: var(--opacity-from);
+            transition: opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Scale Up (zoom in)
+   ============================================================================= */
+
+@utility anim-scale-up {
+    --transform-from: scale(0.9);
+    --transform-to: scale(1);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    transform: var(--transform-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            animation: anim-fade-transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            transition:
+                transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Scale Down (zoom out to normal)
+   ============================================================================= */
+
+@utility anim-scale-down {
+    --transform-from: scale(1.1);
+    --transform-to: scale(1);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    transform: var(--transform-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            animation: anim-fade-transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            opacity: var(--opacity-from);
+            transition:
+                transform var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Blur In
+   ============================================================================= */
+
+@utility anim-blur-in {
+    --filter-from: blur(10px);
+    --filter-to: blur(0);
+    --opacity-from: 0;
+    --opacity-to: 1;
+
+    filter: var(--filter-to);
+    opacity: var(--opacity-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            filter: var(--filter-from);
+            opacity: var(--opacity-from);
+            animation: anim-blur var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            filter: var(--filter-from);
+            opacity: var(--opacity-from);
+            transition:
+                filter var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms),
+                opacity var(--anim-duration, 600ms) ease-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            filter: var(--filter-to);
+            opacity: var(--opacity-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Slide Up (overlay style)
+   ============================================================================= */
+
+@utility anim-slide-up {
+    --transform-from: translateY(100%);
+    --transform-to: translateY(0);
+
+    transform: var(--transform-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            animation: anim-transform var(--anim-duration, 800ms) ease-in-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            transition: transform var(--anim-duration, 800ms) ease-in-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+        }
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS - Slide Down (reveal style)
+   ============================================================================= */
+
+@utility anim-slide-down {
+    --transform-from: translateY(-100%);
+    --transform-to: translateY(0);
+
+    transform: var(--transform-to);
+
+    @supports (animation-timeline: view()) {
+        @container style(--animation-type: "forward") {
+            transform: var(--transform-from);
+            animation: anim-transform var(--anim-duration, 800ms) ease-in-out var(--anim-delay, 0ms) forwards;
+            animation-play-state: var(--anim-trigger);
+        }
+
+        @container style(--animation-type: "reverse") {
+            transform: var(--transform-from);
+            transition: transform var(--anim-duration, 800ms) ease-in-out var(--anim-delay, 0ms);
+        }
+
+        @container style(--animation-type: "reverse") and style(--anim-trigger: running) {
+            transform: var(--transform-to);
+        }
+    }
+}
+
+/* =============================================================================
+   KEYFRAMES - Partagés entre animations
+   ============================================================================= */
+
+@keyframes anim-fade-transform {
+    to {
+        transform: var(--transform-to);
+        opacity: var(--opacity-to);
+    }
+}
+
+@keyframes anim-transform {
+    to {
+        transform: var(--transform-to);
+    }
+}
+
+@keyframes anim-opacity {
+    to {
+        opacity: var(--opacity-to);
+    }
+}
+
+@keyframes anim-blur {
+    to {
+        filter: var(--filter-to);
+        opacity: var(--opacity-to);
+    }
+}

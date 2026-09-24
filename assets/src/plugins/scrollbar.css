@@ -1,0 +1,45 @@
+@utility no-scrollbar {
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@property --pib-scrollbar-thumb-color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: auto;
+}
+
+@property --pib-scrollbar-track-color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: auto;
+}
+
+@utility scrollbar {
+    scroll-behavior: smooth;
+    scrollbar-color: var(--pib-scrollbar-thumb-color) var(--pib-scrollbar-track-color);
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--pib-scrollbar-thumb-color);
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: var(--pib-scrollbar-track-color);
+    }
+}
+
+@utility scrollbar-track-* {
+    --pib-scrollbar-track-color: --value(--color-*, [color]);
+}
+
+@utility scrollbar-thumb-* {
+    --pib-scrollbar-thumb-color: --value(--color-*, [color]);
+}
+
+@utility scrollbar-width-* {
+    scrollbar-width: --value('auto', 'thin');
+}

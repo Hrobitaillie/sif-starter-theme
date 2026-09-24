@@ -1,0 +1,58 @@
+/**
+ * Configuration Tailwind du thème (sources scannées, @theme, @utility).
+ *
+ * Importé SANS layer par main.css ET par un éventuel thème enfant : Tailwind 4 refuse
+ * `@source` et `@utility` à l'intérieur d'un `@import … layer(x)`. Ne mettre ici que de la
+ * configuration Tailwind ou des fichiers qui déclarent des `@utility`.
+ */
+
+/* SiteForge 2.0 - Scroll-driven animations (déclare des @utility) */
+@import "../../siteforge/src/animations.css";
+
+/*
+ * Source paths for Tailwind CSS class detection
+ * Theme is the single source of truth for Tailwind
+ * Plugin blocks are scanned here so their classes are included
+ */
+@source "../../**/*.php";
+@source "../../**/*.html";
+/* SiteForge 1.0 */
+@source "../../../../plugins/site-forge/src/blocks/**/*.php";
+@source "../../../../plugins/site-forge/includes/**/*.php";
+@source "../../../../plugins/site-forge/helpers/**/*.php";
+/* SiteForge 2.0 */
+@source "../../../../plugins/site-forge-2.0/src/blocks/**/*.php";
+@source "../../../../plugins/site-forge-2.0/includes/**/*.php";
+@source "../../../../plugins/site-forge-2.0/helpers/**/*.php";
+/* SiteForge v3 */
+@source "../../../../plugins/site-forge-v3/src/blocks/**/*.php";
+@source "../../../../plugins/site-forge-v3/includes/**/*.php";
+@source "../../../../plugins/site-forge-v3/helpers/**/*.php";
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --breakpoint-3xl: 120rem;
+
+  --transition-duration-*: initial;
+  --transition-duration-sm: 200ms;
+  --transition-duration-md: 300ms;
+  --transition-duration-lg: 500ms;
+
+  --transition-property-most: border-radius, scale, transform, opacity,
+    box-shadow, color, background-color, border-color, outline-color,
+    text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via,
+    --tw-gradient-to;
+
+  --pib-container-padding: 1.25rem;
+  --pib-menu-height--fallback: 110px;
+}
+
+@utility container {
+  margin-inline: auto;
+  width: calc(100% - var(--pib-container-padding) * 2);
+}

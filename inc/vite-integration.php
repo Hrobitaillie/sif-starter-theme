@@ -36,6 +36,34 @@ function sif_is_vite_dev_server_running() {
 }
 
 /**
+ * Theme whose Vite build is loaded: the child theme when it ships its own build
+ * (assets/dist/.vite/manifest.json), otherwise this theme.
+ *
+ * A child theme's build is expected to include this theme's styles (in a low-priority
+ * "parent" CSS layer), so only one build is ever enqueued.
+ *
+ * @return string Absolute path of the theme directory
+ */
+function sif_vite_assets_dir() {
+    $child = get_stylesheet_directory();
+
+    if ($child !== SIF_THEME_DIR && file_exists($child . '/assets/dist/.vite/manifest.json')) {
+        return $child;
+    }
+
+    return SIF_THEME_DIR;
+}
+
+/**
+ * URL counterpart of sif_vite_assets_dir().
+ *
+ * @return string Theme directory URL
+ */
+function sif_vite_assets_uri() {
+    return sif_vite_assets_dir() === SIF_THEME_DIR ? SIF_THEME_URI : get_stylesheet_directory_uri();
+}
+
+/**
  * Get manifest from Vite build
  *
  * @return array|null Manifest data or null if not found
@@ -47,7 +75,7 @@ function sif_get_vite_manifest() {
         return $manifest;
     }
 
-    $manifest_path = SIF_THEME_DIR . '/assets/dist/.vite/manifest.json';
+    $manifest_path = sif_vite_assets_dir() . '/assets/dist/.vite/manifest.json';
 
     if (!file_exists($manifest_path)) {
         return null;
@@ -113,7 +141,7 @@ function sif_enqueue_vite_assets() {
             foreach ($manifest['assets/src/main.js']['css'] as $css_file) {
                 wp_enqueue_style(
                     'sif-main-' . basename($css_file, '.css'),
-                    SIF_THEME_URI . '/assets/dist/' . $css_file,
+                    sif_vite_assets_uri() . '/assets/dist/' . $css_file,
                     [],
                     SIF_THEME_VERSION
                 );
@@ -124,7 +152,7 @@ function sif_enqueue_vite_assets() {
         if (isset($manifest['assets/src/main.js']['file'])) {
             wp_enqueue_script(
                 'sif-main',
-                SIF_THEME_URI . '/assets/dist/' . $manifest['assets/src/main.js']['file'],
+                sif_vite_assets_uri() . '/assets/dist/' . $manifest['assets/src/main.js']['file'],
                 [],
                 SIF_THEME_VERSION,
                 true
@@ -163,7 +191,7 @@ function sif_enqueue_block_assets() {
             foreach ($manifest['assets/src/main.js']['css'] as $css_file) {
                 wp_enqueue_style(
                     'sif-editor-' . basename($css_file, '.css'),
-                    SIF_THEME_URI . '/assets/dist/' . $css_file,
+                    sif_vite_assets_uri() . '/assets/dist/' . $css_file,
                     [],
                     SIF_THEME_VERSION
                 );

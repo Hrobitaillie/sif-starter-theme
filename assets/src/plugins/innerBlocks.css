@@ -1,0 +1,9 @@
+@utility inner-blocks {
+  &:has(> :empty) {
+    display: none;
+  }
+
+  :where(.block-editor-inner-blocks, .block-editor-block-list__layout) {
+    display: contents;
+  }
+}

@@ -1,0 +1,27 @@
+
+@property --uno {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: currentColor;
+}
+@property --duo {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: currentColor;
+}
+
+@theme {
+    --transition-property-tone: --uno, --duo;
+}
+
+@utility uno-* {
+    --uno: --value([color]);
+    --uno: --value(--color-*);
+    --uno: --alpha(--value(--color-*) / calc(--modifier(integer) * 1%));
+}
+
+@utility duo-* {
+    --duo: --value([color]);
+    --duo: --value(--color-*);
+    --duo: --alpha(--value(--color-*) / calc(--modifier(integer) * 1%));
+}

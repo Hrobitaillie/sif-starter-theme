@@ -1,0 +1,32 @@
+@theme {
+    --spacing-menu: var(--pib-menu-height, var(--pib-menu-height--fallback));
+    --spacing-calc-size-min: calc-size(min-content, size);
+    --spacing-calc-size-max: calc-size(max-content, size);
+    --spacing-calc-size-fit: calc-size(fit-content, size);
+    --spacing-calc-size-flex: calc-size(content, size);
+    --spacing-calc-size-auto: calc-size(auto, size);
+
+    --pib-menu-height--flow: calc( var(--pib-menu-height, 0px) * var(--pib-menu-static, 1) );
+}
+
+@utility hu-* {
+    height: calc(--value([length]) - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+    height: calc(--spacing(--value(integer)) - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+    height: calc(--value(--spacing-*) - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+}
+
+@utility hu-vh {
+    height: calc(100vh - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+}
+
+@utility hu-dvh {
+    height: calc(100dvh - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+}
+
+@utility hu-svh {
+    height: calc(100svh - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+}
+
+@utility hu-lvh {
+    height: calc(100lvh - calc(var(--pib-menu-height--flow, 0px)) - var(--wp-admin--admin-bar--height, 0px));
+}

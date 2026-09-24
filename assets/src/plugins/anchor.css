@@ -1,0 +1,51 @@
+@utility anchor-* {
+    anchor-name: --value([*]);
+}
+
+@utility anchor {
+    anchor-name: --pib-anchor;
+}
+
+@utility anchored {
+    position-anchor: --pib-anchor;
+}
+
+@utility anchor-scope {
+    anchor-scope: --pib-anchor;
+}
+
+@utility outside-top {
+    position-area: block-start;
+}
+
+@utility outside-left {
+    position-area: inline-start;
+}
+
+@utility outside-right {
+    position-area: inline-end;
+}
+
+@utility outside-bottom {
+    position-area: block-end;
+}
+
+@utility inside-top-left {
+    top: anchor(top);
+    left: anchor(left);
+}
+
+@utility inside-top-right {
+    top: anchor(top);
+    right: anchor(right);
+}
+
+@utility inside-bottom-left {
+    bottom: anchor(bottom);
+    left: anchor(left);
+}
+
+@utility inside-bottom-right {
+    bottom: anchor(bottom);
+    right: anchor(right);
+}

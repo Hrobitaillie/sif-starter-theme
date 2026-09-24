@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sif/cta-triple",
+    "title": "CTA Triple",
+    "description": "ddd",
+    "category": "siteforge",
+    "keywords": [],
+    "textdomain": "siteforge",
+    "version": "1.0.0",
+    "supports": {
+        "anchor": true,
+        "align": [
+            "full",
+            "wide"
+        ],
+        "html": false
+    },
+    "attributes": {
+        "align": {
+            "type": "string",
+            "default": "full"
+        }
+    },
+    "viewScript": [
+        "file:./cta-triple.js",
+        "sif-block"
+    ]
+}

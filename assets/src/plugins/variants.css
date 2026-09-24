@@ -1,0 +1,25 @@
+@custom-variant admin (&:is(.wp-admin *, .block-editor-iframe__body *));
+@custom-variant current (&:is(:has(a[data-current-page]), &[data-current-page]));
+@custom-variant details-open (&:is(details[open] *));
+@custom-variant focus-visible-within (&:has(:focus-visible));
+@custom-variant group-focus-visible-within (:merge(.group):has(:focus-visible) &);
+@custom-variant peer-focus-visible-within (:merge(.peer):has(:focus-visible) ~ &);
+@custom-variant popover-open (&:popover-open);
+@custom-variant force (&&&);
+@custom-variant hocus (&:is(:hover, :focus-visible));
+
+@layer components {
+    .hocus {
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            outline-width: 2px;
+            outline-offset: 2px;
+            outline-style: solid;
+            border-radius: var(--radius-xs);
+            outline-color: var(--color-black);
+        }
+    }
+}

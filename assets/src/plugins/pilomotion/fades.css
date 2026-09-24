@@ -1,0 +1,133 @@
+@utility fade-in-name-*{
+    --pim-timeline-name: --value([*]);
+}
+
+
+@utility fade-in{
+    --pim-fade-translate-from: translateY(var(--pim-fade-translate-from-value, 20%));
+    --pim-fade-translate-to: translateY(var(--pim-fade-translate-to-value, 0%));
+
+    @supports (view-timeline-name: var(--pim-timeline-name)){
+        animation-name: animation-fade;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: var(--pim-timeline-name, --pim-timeline-name-default);
+        animation-duration: 1ms;
+        animation-range: entry-crossing 0% cover 30%;
+    }            
+}
+@utility fade-in-self{
+    --pim-fade-translate-from: translateY(var(--pim-fade-translate-from-value, 20%));
+    --pim-fade-translate-to: translateY(var(--pim-fade-translate-to-value, 0%));
+
+    @supports (view-timeline-name: var(--pim-timeline-name)){
+        view-timeline-name: var(--pim-timeline-name, --pim-timeline-name-default);
+        animation-name: animation-fade;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: var(--pim-timeline-name, --pim-timeline-name-default);
+        animation-duration: 1ms;
+        animation-range: var(--pim-fade-entry-range-type, entry-crossing) var(--pim-fade-entry-range-value, 0%) var(--pim-fade-exit-range-type, cover) var(--pim-fade-exit-range-value, 30%);
+    }            
+}
+
+
+@utility entry--entry-crossing{
+        --pim-fade-entry-range-type: entry-crossing;
+}
+@utility exit--entry-crossing{
+        --pim-fade-exit-range-type: entry-crossing;
+} 
+@utility entry--exit-crossing{
+        --pim-fade-entry-range-type: exit-crossing;
+}
+@utility exit--exit-crossing{
+        --pim-fade-exit-range-type: exit-crossing;
+}
+@utility entry--entry{
+        --pim-fade-entry-range-type: entry;
+}
+@utility exit--entry{
+        --pim-fade-exit-range-type: entry;
+}
+@utility entry--exit{
+        --pim-fade-entry-range-type: exit;
+}
+@utility exit--exit{
+        --pim-fade-exit-range-type: exit;
+}
+@utility entry--cover{
+        --pim-fade-entry-range-type: cover;
+}
+@utility exit--cover{
+        --pim-fade-exit-range-type: cover;
+}
+@utility entry--contain{
+        --pim-fade-entry-range-type: contain;
+}
+@utility exit--contain{
+        --pim-fade-exit-range-type: contain;
+}
+@utility entry--value-*{
+        --pim-fade-entry-range-value: --value(integer)%;
+        --pim-fade-entry-range-value: --value([*]);
+}
+@utility exit--value-*{
+        --pim-fade-exit-range-value: --value(integer)%;
+        --pim-fade-exit-range-value: --value([*]);
+}
+
+@utility fade-x {
+    --pim-fade-translate-from: translateX(var(--fade-translate-from-value, 20%));
+    --pim-fade-translate-to: translateX(var(--fade-translate-to-value, 0%));
+}
+@utility fade-y {
+    --pim-fade-translate-from: translateY(var(--fade-translate-from-value, 20%));
+    --pim-fade-translate-to: translateY(var(--fade-translate-to-value, 0%));
+}
+
+/* Intellisense non fonctionnelle pour le ratio */
+@utility fade-translate-from-* {
+    --pim-fade-translate-from-value: calc(var(--spacing) * --value([percentage], [length]));
+    --pim-fade-translate-from-value: calc(100% * --value(ratio));
+    --pim-fade-translate-from-value: --spacing(--value(integer));
+}
+
+/* Intellisense non fonctionnelle pour le ratio */
+@utility fade-translate-to-* {
+    --pim-fade-translate-to-value: calc(var(--spacing) * --value([percentage], [length]));
+    --pim-fade-translate-to-value: calc(100% * --value(ratio));
+    --pim-fade-translate-to-value: --spacing(--value(integer));
+}
+
+/* Intellisense non fonctionnelle pour l'opacité */
+@utility fade-opacity-from-* {
+    --pim-fade-opacity-from: --value([number]);
+    --pim-fade-opacity-from: calc(--value(integer) / 100);
+}
+
+@layer base{
+    @property --fade-translate-from-value{
+        syntax: "<length-percentage>";
+        initial-value: 20%;
+        inherits: false;
+    }
+    @property --fade-translate-to-value{
+        syntax: "<length-percentage>";
+        initial-value: 0%;
+        inherits: false;
+    }
+    section:has(.fade-in),section.fade-in{
+        view-timeline-name: --pim-timeline-name-default;
+    }
+    @keyframes animation-fade{
+        from {
+            opacity: var(--pim-fade-opacity-from, 0);
+            transform: var(--pim-fade-translate-from);
+        }
+        to {
+            transform: var(--pim-fade-translate-to);
+            opacity: var(--pim-fade-opacity-to, 1);
+        }
+    }
+}

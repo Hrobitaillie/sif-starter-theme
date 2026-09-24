@@ -1,0 +1,49 @@
+@utility view-timeline {
+    @supports (animation-timeline: view()) {
+        view-timeline: --pib-view-timeline block;
+    }            
+}
+
+@utility zoom-in {
+    @supports (animation-timeline: view()) {
+        animation-name: pib-zoom-in;
+        animation-duration: 1ms;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: --pib-view-timeline;
+        animation-range: entry-crossing 0% cover 30%;
+    }            
+}
+
+@utility fade-in2 {
+    @supports (animation-timeline: view()) {
+        animation-name: pib-fade-in;
+        animation-duration: 1ms;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: --pib-view-timeline;
+        animation-range: entry-crossing 0% cover 30%;
+    }            
+}
+
+@layer base {
+    @keyframes pib-zoom-in {
+        from {
+            transform: scale(1.15);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes pib-fade-in {
+        from {
+            opacity: 1;
+            transform: translateY(20%);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(0%);
+        }
+    }
+}

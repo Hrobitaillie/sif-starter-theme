@@ -1,0 +1,77 @@
+/* ==== Tokens & keyframes ==== */
+@theme {
+  @keyframes autoslider-x {
+    from {
+      transform: translateX(0) translateZ(0);
+    }
+
+    to {
+      transform: translateX(-50%) translateZ(0);
+    }
+  }
+}
+
+/* ==== Utilities ==== */
+/* Durée paramétrable par entier : .autoslider-4, .autoslider-10, .autoslider-20, etc. */
+@utility autoslider-* {
+  --autoslider-duration: calc(--value(integer) * 1s);
+  --autoslider-direction: normal;
+  /* normal | reverse */
+  position: relative;
+  contain: paint;
+}
+
+/* Fondu aux bords (optionnel) */
+@utility autoslider-mask {
+  mask-image: linear-gradient(to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent);
+}
+
+/* Piste animée : DOIT contenir 2x la même séquence d'éléments */
+@utility autoslider-track {
+  display: flex;
+  width: max-content;
+  /* s'étire à la largeur du contenu doublé */
+  will-change: transform;
+  animation: autoslider-x var(--autoslider-duration, 30s) linear infinite;
+  animation-direction: var(--autoslider-direction);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  perspective: 1000px;
+
+  &> :first-child {
+    padding-left: var(--tw-gap-x, 0);
+  }
+
+  &>* {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+}
+
+/* Élément de piste : pas de wrap */
+@utility autoslider-item {
+  flex: none;
+  white-space: nowrap;
+}
+
+/* Sens inverse sur la piste */
+@utility autoslider-reverse {
+  --autoslider-direction: reverse;
+}
+
+/* Pause (utile avec :hover, :focus-within, group-hover, etc.) */
+@utility autoslider-paused {
+  animation-play-state: paused;
+}
+
+/* Respecte "réduction des animations" */
+@media (prefers-reduced-motion: reduce) {
+  .autoslider-track {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
+}

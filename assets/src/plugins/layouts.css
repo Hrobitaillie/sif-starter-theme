@@ -1,0 +1,125 @@
+@theme {
+    --pib-checkerboard-media--width: 50%;
+}
+
+@utility grid-cols-checkerboard {
+    grid-template-columns: minmax(50%, 1fr) minmax(auto, min(50vh, var(--pib-checkerboard-media--width, 50%)));
+}
+
+@utility checkerboard-media-width-* {
+    --pib-checkerboard-media--width: --value([length]);
+    --pib-checkerboard-media--width: --spacing(--value(integer));
+    --pib-checkerboard-media--width: --value(--spacing-*);
+}
+
+@utility auto-fill-* {
+    grid-template-columns: repeat(auto-fill, minmax(min(--value([length]), 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(--spacing(--value(integer)), 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(--value(--spacing-*), 100%), 1fr));
+}
+
+@utility auto-fit-* {
+    grid-template-columns: repeat(auto-fit, minmax(min(--value([length]), 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(--spacing(--value(integer)), 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(--value(--spacing-*), 100%), 1fr));
+}
+
+@utility centered {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-items: safe center;
+    justify-content: center;
+    justify-content: safe center;
+}
+
+@utility snap-container {
+    --pib-snap-margin--internal: var(--pib-snap-margin, var(--spacing-cm));
+    scroll-snap-type: x var(--tw-scroll-snap-strictness);
+    overflow-x: auto;
+    @apply no-scrollbar;
+
+    &>* {
+        scroll-snap-align: start;
+        scroll-margin-inline-start: var(--pib-snap-margin--internal);
+    }
+
+    &>:first-child {
+        margin-inline-start: var(--pib-snap-margin--internal);
+    }
+
+    &>:last-child {
+        margin-inline-end: var(--pib-snap-margin--internal);
+    }
+}
+
+@utility snap-margin-* {
+    --pib-snap-margin: --value([length]);
+    --pib-snap-margin: --spacing(--value(integer));
+    --pib-snap-margin: --value(--spacing-*);
+}
+
+@utility wrapped {
+    flex-wrap: wrap;
+    --tw-parent-gap-x: var(--tw-gap-x);
+
+    &>* {
+        flex-shrink: 1;
+        flex-basis: calc((100% / --value(integer)) - calc(var(--tw-parent-gap-x) / --value(integer) * calc(--value(integer) - 1)));
+    }
+}
+
+@utility stretch-* {
+    @apply wrapped;
+
+    &>* {
+        flex-grow: 1;
+    }
+}
+
+@utility fit-* {
+    @apply wrapped;
+    justify-content: center;
+    justify-content: safe center;
+
+    &>* {
+        flex-grow: 0;
+    }
+}
+
+@utility gap-* {
+
+    /* Ne peut pas encore override les valeurs par défaut
+    https://github.com/tailwindlabs/tailwindcss/issues/18215
+    --*: initial;
+
+    en attendant, on utilise ce vieux trick pour une plus haute spécificité
+    */
+    && {
+        --tw-gap-x: --value([length]);
+        --tw-gap-x: --spacing(--value(integer));
+        --tw-gap-x: --value(--spacing-*);
+        --tw-gap-y: --value([length]);
+        --tw-gap-y: --spacing(--value(integer));
+        --tw-gap-y: --value(--spacing-*);
+        gap: var(--tw-gap-y) var(--tw-gap-x);
+    }
+}
+
+@utility gap-x-* {
+    && {
+        --tw-gap-x: --value([length]);
+        --tw-gap-x: --spacing(--value(integer));
+        --tw-gap-x: --value(--spacing-*);
+        column-gap: var(--tw-gap-x);
+    }
+}
+
+@utility gap-y-* {
+    && {
+        --tw-gap-y: --value([length]);
+        --tw-gap-y: --spacing(--value(integer));
+        --tw-gap-y: --value(--spacing-*);
+        row-gap: var(--tw-gap-y);
+    }
+}

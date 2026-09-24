@@ -1,0 +1,35 @@
+@utility absolute-parallax {
+    --pim-translate-from: translateY(var(--pim-fade-translate-from-value, 100%));
+    --pim-translate-to: translateY(var(--pim-fade-translate-to-value, 0%));
+
+    view-timeline-name: --section-absolute-parallax;
+    animation-name: animation-absolute-parallax;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+
+    animation-timeline: --section-absolute-parallax;
+    animation-range: entry-crossing 0% exit-crossing 100%;
+
+}
+@keyframes animation-absolute-parallax {
+    from {
+        transform: var(--pim-translate-from);
+    }
+
+    100% {
+        transform: var(--pim-fade-translate-to);
+    }
+}
+
+
+@utility fade-translate-from-* {
+    --pim-fade-translate-from-value: calc(var(--spacing) * --value([percentage], [length]));
+    --pim-fade-translate-from-value: calc(100% * --value(ratio));
+    --pim-fade-translate-from-value: --spacing(--value(integer));
+}
+
+@utility fade-translate-to-* {
+    --pim-fade-translate-to-value: calc(var(--spacing) * --value([percentage], [length]));
+    --pim-fade-translate-to-value: calc(100% * --value(ratio));
+    --pim-fade-translate-to-value: --spacing(--value(integer));
+}

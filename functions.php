@@ -42,3 +42,8 @@ add_filter('siteforge/block_scan_paths', function($paths) {
     }
     return $paths;
 });
+
+// Disable default layout styles if SiteForge is active
+add_theme_support( 'disable-layout-styles' );
+wp_dequeue_style( 'global-styles' );
+wp_deregister_style( 'global-styles' );
